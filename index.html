@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treinando Informática Interativo</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      background-color: #f2f6fa;
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 1.2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+      transform: scale(1.03);
+    }
+
+    .box {
+      border: 2px dashed #0077cc;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+      background-color: white;
+      transition: background-color 0.3s;
+    }
+
+    #mensagemClique {
+      font-size: 1.1rem;
+      color: #0077cc;
+      margin-top: 1rem;
+      min-height: 2rem;
+    }
+
+    #frase {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      color: #444;
+    }
+
+    input[type="text"] {
+      padding: 0.5rem;
+      width: 80%;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+    }
+
+    #resultado {
+      margin-top: 0.8rem;
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: #0077cc;
+      color: white;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+
+    /* 🎉 Efeito de confete */
+    .confete {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      border-radius: 50%;
+      animation: cair 2s linear forwards;
+      z-index: 9999;
+    }
+
+    @keyframes cair {
+      0% { transform: translateY(0) rotate(0); opacity: 1; }
+      100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💻 Treinando Informática Interativo</h1>
+    <p>Aprenda com cliques, digitação e diversão!</p>
+  </header>
+
+  <main>
+    <section class="box" id="clique">
+      <h2>🖱️ Praticando Cliques</h2>
+      <p>Clique dentro desta caixa com o <strong>botão esquerdo</strong> ou <strong>direito</strong> do mouse!</p>
+      <div id="mensagemClique">Aguardando seu clique...</div>
+    </section>
+
+    <section class="box" id="digitacao">
+      <h2>⌨️ Treino de Digitação</h2>
+      <p>Clique no botão abaixo para gerar uma frase e pratique digitar:</p>
+      <button id="gerarFrase">Gerar frase</button>
+      <div id="frase"></div>
+
+      <input type="text" id="entrada" placeholder="Digite aqui a frase..." disabled>
+      <div id="resultado"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Feito com 💙 para estudantes de informática | © 2025</p>
+  </footer>
+
+  <!-- 🎵 Sons simples (usando Web Audio API) -->
+  <script>
+    // Função para tocar um som curto
+    function tocarSom(frequencia, duracao = 0.1) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'sine';
+      o.frequency.value = frequencia;
+      o.connect(g);
+      g.connect(ctx.destination);
+      o.start(0);
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duracao);
+      o.stop(ctx.currentTime + duracao);
+    }
+
+    // =======================
+    // SEÇÃO 1: CLIQUES
+    // =======================
+    const caixa = document.getElementById("clique");
+    const mensagem = document.getElementById("mensagemClique");
+
+    caixa.addEventListener("click", (e) => {
+      e.preventDefault();
+      mensagem.textContent = "👆 Clique esquerdo detectado! Muito bem!";
+      caixa.style.backgroundColor = "#e6f4ff";
+      tocarSom(600, 0.15);
+    });
+
+    caixa.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      mensagem.textContent = "👉 Clique direito detectado! Continue praticando!";
+      caixa.style.backgroundColor = "#fff4e6";
+      tocarSom(300, 0.15);
+    });
+
+    // =======================
+    // SEÇÃO 2: DIGITAÇÃO
+    // =======================
+    const frases = [
+      "O computador é uma ferramenta incrível.",
+      "Praticar digitação melhora sua velocidade.",
+      "Aprender informática é divertido e útil.",
+      "O mouse serve para apontar e clicar.",
+      "O teclado é essencial para escrever textos.",
+      "Cada tecla tem uma função diferente.",
+      "Com prática, você digita cada vez mais rápido!"
+    ];
+
+    const botaoFrase = document.getElementById("gerarFrase");
+    const campoFrase = document.getElementById("frase");
+    const entrada = document.getElementById("entrada");
+    const resultado = document.getElementById("resultado");
+
+    let fraseAtual = "";
+
+    botaoFrase.addEventListener("click", () => {
+      const aleatoria = frases[Math.floor(Math.random() * frases.length)];
+      fraseAtual = aleatoria;
+      campoFrase.textContent = `"${aleatoria}"`;
+      entrada.value = "";
+      entrada.disabled = false;
+      entrada.focus();
+      resultado.textContent = "";
+    });
+
+    entrada.addEventListener("input", () => {
+      if (entrada.value === fraseAtual) {
+        resultado.textContent = "✅ Parabéns! Você digitou tudo corretamente!";
+        resultado.style.color = "green";
+        entrada.disabled = true;
+        tocarSom(900, 0.3);
+        soltarConfete();
+      } else {
+        resultado.textContent = "";
+      }
+    });
+
+    // 🎉 Função para criar confetes coloridos
+    function soltarConfete() {
+      for (let i = 0; i < 40; i++) {
+        const confete = document.createElement("div");
+        confete.classList.add("confete");
+        confete.style.left = Math.random() * window.innerWidth + "px";
+        confete.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        confete.style.animationDuration = 1.5 + Math.random() + "s";
+        document.body.appendChild(confete);
+        setTimeout(() => confete.remove(), 2000);
+      }
+    }
+  </script>
+</body>
+</html>
