@@ -143,6 +143,20 @@
       margin-top: 1.5rem;
     }
 
+    /* Quiz */
+    #opcoes button {
+      display: block;
+      width: 100%;
+      margin: 0.3rem 0;
+      text-align: left;
+    }
+
+    #resultadoQuiz {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: green;
+    }
+
     footer {
       background-color: #0077cc;
       color: white;
@@ -177,6 +191,7 @@
     <a href="#cliques">🖱️ Cliques</a>
     <a href="#digitacao">⌨️ Digitação</a>
     <a href="#monte">💻 Monte o Computador</a>
+    <a href="#quiz">🧩 Quiz</a>
   </nav>
 
   <main>
@@ -220,6 +235,19 @@
 
       <div id="mensagemFinal"></div>
     </section>
+
+    <!-- 🧩 QUIZ -->
+    <section id="quiz">
+      <h2>🧩 Quiz de Informática</h2>
+      <p>Responda às perguntas e teste seus conhecimentos!</p>
+
+      <div id="areaQuiz">
+        <div id="pergunta"></div>
+        <div id="opcoes"></div>
+        <div id="progresso"></div>
+      </div>
+      <div id="resultadoQuiz"></div>
+    </section>
   </main>
 
   <footer>
@@ -227,7 +255,7 @@
   </footer>
 
   <script>
-    // ============ SOM ============
+    // 🔊 Som simples
     function tocarSom(freq, dur = 0.1) {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const o = ctx.createOscillator();
@@ -254,17 +282,14 @@
       }
     }
 
-    // ============ CLIQUES ============
+    // 🖱️ CLIQUES
     const caixa = document.getElementById("caixaCliques");
     const msgClique = document.getElementById("mensagemClique");
-
     caixa.addEventListener("click", e => {
-      e.preventDefault();
       msgClique.textContent = "👆 Clique esquerdo detectado! Muito bem!";
       caixa.style.backgroundColor = "#e6f4ff";
       tocarSom(600, 0.15);
     });
-
     caixa.addEventListener("contextmenu", e => {
       e.preventDefault();
       msgClique.textContent = "👉 Clique direito detectado! Excelente!";
@@ -272,7 +297,7 @@
       tocarSom(300, 0.15);
     });
 
-    // ============ DIGITAÇÃO ============
+    // ⌨️ DIGITAÇÃO
     const frases = [
       "O computador é uma ferramenta incrível.",
       "Praticar digitação melhora sua velocidade.",
@@ -280,7 +305,6 @@
       "O mouse serve para apontar e clicar.",
       "O teclado é essencial para escrever textos."
     ];
-
     const btnFrase = document.getElementById("gerarFrase");
     const campoFrase = document.getElementById("frase");
     const entrada = document.getElementById("entrada");
@@ -288,9 +312,8 @@
     let fraseAtual = "";
 
     btnFrase.addEventListener("click", () => {
-      const aleatoria = frases[Math.floor(Math.random() * frases.length)];
-      fraseAtual = aleatoria;
-      campoFrase.textContent = `"${aleatoria}"`;
+      fraseAtual = frases[Math.floor(Math.random() * frases.length)];
+      campoFrase.textContent = `"${fraseAtual}"`;
       entrada.value = "";
       entrada.disabled = false;
       entrada.focus();
@@ -309,45 +332,93 @@
       }
     });
 
-    // ============ MONTE O COMPUTADOR ============
+    // 💻 MONTE O COMPUTADOR
     const pecas = document.querySelectorAll('.peca');
     const slots = document.querySelectorAll('.slot');
     const msgFinal = document.getElementById('mensagemFinal');
     let acertos = 0;
-
-    pecas.forEach(p => {
-      p.addEventListener('dragstart', e => {
-        e.dataTransfer.setData('text/plain', p.dataset.alvo);
-      });
-    });
-
+    pecas.forEach(p => p.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', p.dataset.alvo)));
     slots.forEach(slot => {
       slot.addEventListener('dragover', e => e.preventDefault());
-
       slot.addEventListener('drop', e => {
         e.preventDefault();
         const alvo = e.dataTransfer.getData('text/plain');
-        const nomeSlot = slot.dataset.nome;
-
-        if (alvo === nomeSlot && !slot.classList.contains('correto')) {
+        if (alvo === slot.dataset.nome && !slot.classList.contains('correto')) {
           slot.classList.add('correto');
           slot.innerHTML = `<h4>${slot.dataset.nome}</h4><p>✅ Correto!</p>`;
           tocarSom(700, 0.15);
           acertos++;
           document.querySelector(`.peca[data-alvo="${alvo}"]`).style.visibility = 'hidden';
-
           if (acertos === pecas.length) {
             msgFinal.textContent = "🎉 Parabéns! Você montou o computador completo!";
             tocarSom(900, 0.4);
             soltarConfete();
           }
-        } else if (alvo !== nomeSlot) {
+        } else {
           tocarSom(200, 0.1);
           slot.style.backgroundColor = "#ffd6d6";
           setTimeout(() => slot.style.backgroundColor = "#fff", 500);
         }
       });
     });
+
+    // 🧩 QUIZ
+    const perguntas = [
+      { q: "O mouse serve para:", opcoes: ["Digitar textos", "Apontar e clicar", "Imprimir documentos"], correta: 1 },
+      { q: "O teclado é usado para:", opcoes: ["Desenhar na tela", "Digitar textos e comandos", "Apagar vírus"], correta: 1 },
+      { q: "A CPU é o cérebro do computador?", opcoes: ["Sim", "Não", "Apenas às vezes"], correta: 0 },
+      { q: "Qual destes é um dispositivo de saída?", opcoes: ["Monitor", "Teclado", "Mouse"], correta: 0 },
+      { q: "Um software é:", opcoes: ["Parte física do computador", "Um programa que executa tarefas", "Um cabo de energia"], correta: 1 }
+    ];
+
+    let indice = 0;
+    let acertosQuiz = 0;
+    const perguntaEl = document.getElementById("pergunta");
+    const opcoesEl = document.getElementById("opcoes");
+    const progressoEl = document.getElementById("progresso");
+    const resultadoQuiz = document.getElementById("resultadoQuiz");
+
+    function mostrarPergunta() {
+      if (indice >= perguntas.length) {
+        resultadoQuiz.innerHTML = `🎉 Parabéns! Você acertou ${acertosQuiz} de ${perguntas.length} perguntas.`;
+        tocarSom(900, 0.4);
+        soltarConfete();
+        return;
+      }
+
+      const atual = perguntas[indice];
+      perguntaEl.textContent = atual.q;
+      progressoEl.textContent = `Pergunta ${indice + 1} de ${perguntas.length}`;
+      opcoesEl.innerHTML = "";
+
+      atual.opcoes.forEach((texto, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = texto;
+        btn.onclick = () => verificarResposta(i, atual.correta, btn);
+        opcoesEl.appendChild(btn);
+      });
+    }
+
+    function verificarResposta(escolhida, correta, botao) {
+      const botoes = opcoesEl.querySelectorAll("button");
+      botoes.forEach(b => b.disabled = true);
+
+      if (escolhida === correta) {
+        botao.style.backgroundColor = "#4CAF50";
+        tocarSom(700, 0.2);
+        acertosQuiz++;
+      } else {
+        botao.style.backgroundColor = "#f44336";
+        tocarSom(200, 0.2);
+      }
+
+      setTimeout(() => {
+        indice++;
+        mostrarPergunta();
+      }, 800);
+    }
+
+    mostrarPergunta();
   </script>
 </body>
 </html>
