@@ -285,13 +285,33 @@
     // 🖱️ CLIQUES
     const caixa = document.getElementById("caixaCliques");
     const msgClique = document.getElementById("mensagemClique");
+
+    // controle para separar clique simples de duplo
+    let singleTimer;
+    const delay = 250; // janela para considerar duplo clique
+    
+    // clique esquerdo (simples)
     caixa.addEventListener("click", e => {
-      msgClique.textContent = "👆 Clique esquerdo detectado! Muito bem!";
-      caixa.style.backgroundColor = "#e6f4ff";
-      tocarSom(600, 0.15);
+      clearTimeout(singleTimer);
+      singleTimer = setTimeout(() => {
+        msgClique.textContent = "👆 Clique esquerdo detectado! Muito bem!";
+        caixa.style.backgroundColor = "#e6f4ff";
+        tocarSom(600, 0.15);
+      }, delay);
     });
+
+    // duplo clique (esquerdo)
+    caixa.addEventListener("dblclick", e => {
+      clearTimeout(singleTimer); // impede a ação do clique simples
+      msgClique.textContent = "👆👆 Duplo clique detectado! Excelente!";
+      caixa.style.backgroundColor = "#e6ffe6";
+      tocarSom(900, 0.15);
+    });
+
+    // clique direito
     caixa.addEventListener("contextmenu", e => {
       e.preventDefault();
+      clearTimeout(singleTimer); // evita acionar o simples se vier logo após
       msgClique.textContent = "👉 Clique direito detectado! Excelente!";
       caixa.style.backgroundColor = "#fff4e6";
       tocarSom(300, 0.15);
