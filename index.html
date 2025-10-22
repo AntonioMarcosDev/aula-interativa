@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Treinando Informática Interativo</title>
+  <title>Aprendendo Informática 💻</title>
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
@@ -21,10 +21,37 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
+    nav {
+      background-color: #005fa3;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0.7rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
     main {
       padding: 2rem;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
+    }
+
+    section {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
     }
 
     button {
@@ -35,35 +62,12 @@
       border-radius: 8px;
       font-size: 1rem;
       cursor: pointer;
-      margin-top: 1rem;
       transition: background-color 0.2s, transform 0.1s;
     }
 
     button:hover {
       background-color: #005fa3;
       transform: scale(1.03);
-    }
-
-    .box {
-      border: 2px dashed #0077cc;
-      border-radius: 10px;
-      padding: 2rem;
-      margin-top: 1.5rem;
-      background-color: white;
-      transition: background-color 0.3s;
-    }
-
-    #mensagemClique {
-      font-size: 1.1rem;
-      color: #0077cc;
-      margin-top: 1rem;
-      min-height: 2rem;
-    }
-
-    #frase {
-      font-size: 1.2rem;
-      margin: 1rem 0;
-      color: #444;
     }
 
     input[type="text"] {
@@ -75,9 +79,68 @@
       margin-top: 0.5rem;
     }
 
-    #resultado {
-      margin-top: 0.8rem;
+    #mensagemClique, #resultado {
+      margin-top: 1rem;
       font-weight: bold;
+    }
+
+    /* Monte o computador */
+    #peças {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .peca {
+      width: 100px;
+      height: 100px;
+      border: 2px dashed #0077cc;
+      border-radius: 8px;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      transition: transform 0.2s;
+    }
+
+    .peca:hover {
+      transform: scale(1.05);
+    }
+
+    #computador {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .slot {
+      width: 120px;
+      height: 120px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .slot.correto {
+      background-color: #c8f7c5;
+      border-color: #3cb043;
+      transform: scale(1.05);
+    }
+
+    #mensagemFinal {
+      font-weight: bold;
+      color: green;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
     }
 
     footer {
@@ -88,130 +151,97 @@
       margin-top: 3rem;
     }
 
-    /* 🎉 Efeito de confete */
+    /* 🎉 Confete */
     .confete {
       position: fixed;
       width: 10px;
       height: 10px;
-      background-color: red;
       border-radius: 50%;
       animation: cair 2s linear forwards;
       z-index: 9999;
     }
 
     @keyframes cair {
-      0% { transform: translateY(0) rotate(0); opacity: 1; }
-      100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(600px); opacity: 0; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>💻 Treinando Informática Interativo</h1>
-    <p>Aprenda com cliques, digitação e diversão!</p>
+    <h1>💻 Aprendendo Informática</h1>
+    <p>Pratique com o mouse, teclado e descubra as partes do computador!</p>
   </header>
 
+  <nav>
+    <a href="#cliques">🖱️ Cliques</a>
+    <a href="#digitacao">⌨️ Digitação</a>
+    <a href="#monte">💻 Monte o Computador</a>
+  </nav>
+
   <main>
-    <section class="box" id="clique">
-      <h2>🖱️ Praticando Cliques</h2>
-      <p>Clique dentro desta caixa com o <strong>botão esquerdo</strong> ou <strong>direito</strong> do mouse!</p>
-      <div id="mensagemClique">Aguardando seu clique...</div>
+    <!-- 🖱️ CLIQUES -->
+    <section id="cliques">
+      <h2>🖱️ Treino de Cliques</h2>
+      <p>Clique dentro desta área com o botão <strong>esquerdo</strong> ou <strong>direito</strong> do mouse!</p>
+      <div id="caixaCliques" style="border:2px dashed #0077cc; border-radius:10px; padding:2rem; background:#fff;">
+        <div id="mensagemClique">Aguardando seu clique...</div>
+      </div>
     </section>
 
-    <section class="box" id="digitacao">
+    <!-- ⌨️ DIGITAÇÃO -->
+    <section id="digitacao">
       <h2>⌨️ Treino de Digitação</h2>
-      <p>Clique no botão abaixo para gerar uma frase e pratique digitar:</p>
+      <p>Clique no botão abaixo para gerar uma frase e pratique digitá-la:</p>
       <button id="gerarFrase">Gerar frase</button>
       <div id="frase"></div>
-
-      <input type="text" id="entrada" placeholder="Digite aqui a frase..." disabled>
+      <input type="text" id="entrada" placeholder="Digite aqui..." disabled>
       <div id="resultado"></div>
+    </section>
+
+    <!-- 💻 MONTE O COMPUTADOR -->
+    <section id="monte">
+      <h2>💻 Monte o Computador</h2>
+      <p>Arraste cada peça para o local correto!</p>
+
+      <div id="peças">
+        <div class="peca" draggable="true" data-alvo="monitor">🖥️ Monitor</div>
+        <div class="peca" draggable="true" data-alvo="teclado">⌨️ Teclado</div>
+        <div class="peca" draggable="true" data-alvo="mouse">🖱️ Mouse</div>
+        <div class="peca" draggable="true" data-alvo="cpu">🧠 CPU</div>
+      </div>
+
+      <div id="computador">
+        <div class="slot" data-nome="monitor"><h4>Monitor</h4></div>
+        <div class="slot" data-nome="teclado"><h4>Teclado</h4></div>
+        <div class="slot" data-nome="mouse"><h4>Mouse</h4></div>
+        <div class="slot" data-nome="cpu"><h4>CPU</h4></div>
+      </div>
+
+      <div id="mensagemFinal"></div>
     </section>
   </main>
 
   <footer>
-    <p>Feito com 💙 para estudantes de informática | © 2025</p>
+    <p>Feito para estudantes de informática do Crispim Coelho | © 2025</p>
   </footer>
 
-  <!-- 🎵 Sons simples (usando Web Audio API) -->
   <script>
-    // Função para tocar um som curto
-    function tocarSom(frequencia, duracao = 0.1) {
+    // ============ SOM ============
+    function tocarSom(freq, dur = 0.1) {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const o = ctx.createOscillator();
       const g = ctx.createGain();
       o.type = 'sine';
-      o.frequency.value = frequencia;
+      o.frequency.value = freq;
       o.connect(g);
       g.connect(ctx.destination);
-      o.start(0);
-      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duracao);
-      o.stop(ctx.currentTime + duracao);
+      o.start();
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      o.stop(ctx.currentTime + dur);
     }
 
-    // =======================
-    // SEÇÃO 1: CLIQUES
-    // =======================
-    const caixa = document.getElementById("clique");
-    const mensagem = document.getElementById("mensagemClique");
-
-    caixa.addEventListener("click", (e) => {
-      e.preventDefault();
-      mensagem.textContent = "👆 Clique esquerdo detectado! Muito bem!";
-      caixa.style.backgroundColor = "#e6f4ff";
-      tocarSom(600, 0.15);
-    });
-
-    caixa.addEventListener("contextmenu", (e) => {
-      e.preventDefault();
-      mensagem.textContent = "👉 Clique direito detectado! Continue praticando!";
-      caixa.style.backgroundColor = "#fff4e6";
-      tocarSom(300, 0.15);
-    });
-
-    // =======================
-    // SEÇÃO 2: DIGITAÇÃO
-    // =======================
-    const frases = [
-      "O computador é uma ferramenta incrível.",
-      "Praticar digitação melhora sua velocidade.",
-      "Aprender informática é divertido e útil.",
-      "O mouse serve para apontar e clicar.",
-      "O teclado é essencial para escrever textos.",
-      "Cada tecla tem uma função diferente.",
-      "Com prática, você digita cada vez mais rápido!"
-    ];
-
-    const botaoFrase = document.getElementById("gerarFrase");
-    const campoFrase = document.getElementById("frase");
-    const entrada = document.getElementById("entrada");
-    const resultado = document.getElementById("resultado");
-
-    let fraseAtual = "";
-
-    botaoFrase.addEventListener("click", () => {
-      const aleatoria = frases[Math.floor(Math.random() * frases.length)];
-      fraseAtual = aleatoria;
-      campoFrase.textContent = `"${aleatoria}"`;
-      entrada.value = "";
-      entrada.disabled = false;
-      entrada.focus();
-      resultado.textContent = "";
-    });
-
-    entrada.addEventListener("input", () => {
-      if (entrada.value === fraseAtual) {
-        resultado.textContent = "✅ Parabéns! Você digitou tudo corretamente!";
-        resultado.style.color = "green";
-        entrada.disabled = true;
-        tocarSom(900, 0.3);
-        soltarConfete();
-      } else {
-        resultado.textContent = "";
-      }
-    });
-
-    // 🎉 Função para criar confetes coloridos
+    // 🎉 Confete
     function soltarConfete() {
       for (let i = 0; i < 40; i++) {
         const confete = document.createElement("div");
@@ -223,6 +253,101 @@
         setTimeout(() => confete.remove(), 2000);
       }
     }
+
+    // ============ CLIQUES ============
+    const caixa = document.getElementById("caixaCliques");
+    const msgClique = document.getElementById("mensagemClique");
+
+    caixa.addEventListener("click", e => {
+      e.preventDefault();
+      msgClique.textContent = "👆 Clique esquerdo detectado! Muito bem!";
+      caixa.style.backgroundColor = "#e6f4ff";
+      tocarSom(600, 0.15);
+    });
+
+    caixa.addEventListener("contextmenu", e => {
+      e.preventDefault();
+      msgClique.textContent = "👉 Clique direito detectado! Excelente!";
+      caixa.style.backgroundColor = "#fff4e6";
+      tocarSom(300, 0.15);
+    });
+
+    // ============ DIGITAÇÃO ============
+    const frases = [
+      "O computador é uma ferramenta incrível.",
+      "Praticar digitação melhora sua velocidade.",
+      "Aprender informática é divertido e útil.",
+      "O mouse serve para apontar e clicar.",
+      "O teclado é essencial para escrever textos."
+    ];
+
+    const btnFrase = document.getElementById("gerarFrase");
+    const campoFrase = document.getElementById("frase");
+    const entrada = document.getElementById("entrada");
+    const resultado = document.getElementById("resultado");
+    let fraseAtual = "";
+
+    btnFrase.addEventListener("click", () => {
+      const aleatoria = frases[Math.floor(Math.random() * frases.length)];
+      fraseAtual = aleatoria;
+      campoFrase.textContent = `"${aleatoria}"`;
+      entrada.value = "";
+      entrada.disabled = false;
+      entrada.focus();
+      resultado.textContent = "";
+    });
+
+    entrada.addEventListener("input", () => {
+      if (entrada.value === fraseAtual) {
+        resultado.textContent = "✅ Parabéns! Você digitou corretamente!";
+        resultado.style.color = "green";
+        entrada.disabled = true;
+        tocarSom(900, 0.3);
+        soltarConfete();
+      } else {
+        resultado.textContent = "";
+      }
+    });
+
+    // ============ MONTE O COMPUTADOR ============
+    const pecas = document.querySelectorAll('.peca');
+    const slots = document.querySelectorAll('.slot');
+    const msgFinal = document.getElementById('mensagemFinal');
+    let acertos = 0;
+
+    pecas.forEach(p => {
+      p.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', p.dataset.alvo);
+      });
+    });
+
+    slots.forEach(slot => {
+      slot.addEventListener('dragover', e => e.preventDefault());
+
+      slot.addEventListener('drop', e => {
+        e.preventDefault();
+        const alvo = e.dataTransfer.getData('text/plain');
+        const nomeSlot = slot.dataset.nome;
+
+        if (alvo === nomeSlot && !slot.classList.contains('correto')) {
+          slot.classList.add('correto');
+          slot.innerHTML = `<h4>${slot.dataset.nome}</h4><p>✅ Correto!</p>`;
+          tocarSom(700, 0.15);
+          acertos++;
+          document.querySelector(`.peca[data-alvo="${alvo}"]`).style.visibility = 'hidden';
+
+          if (acertos === pecas.length) {
+            msgFinal.textContent = "🎉 Parabéns! Você montou o computador completo!";
+            tocarSom(900, 0.4);
+            soltarConfete();
+          }
+        } else if (alvo !== nomeSlot) {
+          tocarSom(200, 0.1);
+          slot.style.backgroundColor = "#ffd6d6";
+          setTimeout(() => slot.style.backgroundColor = "#fff", 500);
+        }
+      });
+    });
   </script>
 </body>
 </html>
