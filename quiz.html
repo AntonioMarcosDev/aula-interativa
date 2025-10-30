@@ -77,7 +77,7 @@
       atual.opcoes.forEach((texto, i) => {
         const btn = document.createElement("button");
         btn.textContent = texto;
-        btn.onclick = () => verificar(i, atual.correta, btn);
+        btn.onclick = () => verificarResposta(i, atual.correta, btn);
         opcoesEl.appendChild(btn);
       });
     }
