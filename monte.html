@@ -41,11 +41,6 @@
       background-color: #e6f4ff;
     }
 
-    /* Peça dentro da caixa */
-    .peca {
-      font-size: 1.5rem;
-    }
-
     /* Slot de destino */
     .slot {
       width: 120px;
@@ -208,6 +203,21 @@
       o.stop(ctx.currentTime + dur);
     }
 
+    // 🔀 Embaralhar a ordem das peças
+    function embaralharPecas() {
+      const container = document.getElementById("pecas");
+      const pecas = Array.from(container.children);
+      
+      // Embaralha o array de elementos
+      for (let i = pecas.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pecas[i], pecas[j]] = [pecas[j], pecas[i]];
+      }
+      
+      // Reanexa as peças ao container na nova ordem
+      pecas.forEach(p => container.appendChild(p));
+    }
+    
     pecasBox.forEach(p => p.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', p.dataset.alvo)));
 
     slots.forEach(slot => {
@@ -241,6 +251,8 @@
       dados.monte = Math.max(dados.monte || 0, pontos);
       localStorage.setItem("pontuacao", JSON.stringify(dados));
     }
+
+    embaralharPecas();
   </script>
 </body>
 
