@@ -62,6 +62,16 @@
     const progressoEl = document.getElementById("progresso");
     const resultadoEl = document.getElementById("resultadoQuiz");
 
+    function tocarSom(freq, dur = 0.1) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.frequency.value = freq;
+      o.connect(g); g.connect(ctx.destination);
+      o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      o.stop(ctx.currentTime + dur);
+    }
+
     function mostrarPergunta() {
       if (indice >= perguntas.length) {
         resultadoEl.textContent = `🎉 Você acertou ${acertos} de ${perguntas.length} perguntas!`;
