@@ -96,6 +96,7 @@
 <body>
   <header>
     <h1>💻 Monte o Computador</h1>
+    <p><span id="nomeExibir"></span></p>
   </header>
 
   <nav>
@@ -250,6 +251,12 @@
       const dados = JSON.parse(localStorage.getItem("pontuacao")) || {};
       dados.monte = Math.max(dados.monte || 0, pontos);
       localStorage.setItem("pontuacao", JSON.stringify(dados));
+    }
+
+    const nomeExibir = document.getElementById("nomeExibir");
+    const nomeSalvo = localStorage.getItem("nomeAluno");
+    if(nomeExibir && nomeSalvo){
+      nomeExibir.textContent = nomeSalvo;
     }
 
     embaralharPecas();

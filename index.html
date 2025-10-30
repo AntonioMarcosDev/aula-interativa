@@ -9,45 +9,62 @@
 <body>
   <header>
     <h1>💻 Aprendendo Informática</h1>
-    <p>Aprenda e pratique informática básica de forma divertida!</p>
+    <p>Bem-vindo(a)! Digite seu nome para começar.</p>
   </header>
 
- <nav>
-    <a href="index.html">🏠 Início</a>
-    <a href="cliques.html">🖱️ Cliques</a>
-    <a href="digitacao.html">⌨️ Digitação</a>
-    <a href="monte.html">💻 Monte o Computador</a>
-    <a href="quiz.html">🧩 Quiz</a>
-    <a href="progresso.html">🏅 Meu Progresso</a>
-    <a href="downloads.html">📄 Downloads</a>
-  </nav>
-
-  <main>
-    <section>
-      <h2>Bem-vindo(a)!</h2>
-      <p id="boasVindas"></p>
-      <p>Escolha uma das atividades acima para começar a aprender e ganhar pontos!</p>
+  <main id="inicio">
+    <section style="max-width:500px; margin:3rem auto; background:white; padding:2rem; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); text-align:center;">
+      <input type="text" id="nomeAluno" placeholder="Seu nome..." style="width:80%; padding:0.6rem; font-size:1rem; border-radius:6px; border:1px solid #ccc;">
+      <div style="margin-top:1rem;">
+        <button id="entrar" style="background-color:#0077cc; color:white; padding:0.8rem 1.5rem; border:none; border-radius:8px; font-size:1rem; cursor:pointer;">Começar</button>
+      </div>
+      <div id="trocarNome" style="margin-top:1.5rem; display:none;">
+        <button id="trocarAluno" style="background:#f44336; color:white; border:none; padding:0.5rem 1rem; border-radius:6px; cursor:pointer; font-weight:bold;">🔄 Trocar Aluno</button>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>Feito para estudantes de informática do Crispim Coelho | © 2025</p>
+    <p>Feito para estudantes de informática | © 2025</p>
   </footer>
 
   <script>
-    // Identificação do aluno
-    let aluno = localStorage.getItem("aluno");
-    if (!aluno) {
-      aluno = prompt("Digite seu nome para começar:");
-      localStorage.setItem("aluno", aluno);
-      localStorage.setItem("pontuacao", JSON.stringify({
-        cliques: 0, digitacao: 0, monte: 0, quiz: 0
-      }));
+    const nomeInput = document.getElementById("nomeAluno");
+    const btnEntrar = document.getElementById("entrar");
+    const areaTrocar = document.getElementById("trocarNome");
+
+    // Se já existe nome salvo, mostra a opção de trocar
+    const nomeSalvo = localStorage.getItem("nomeAluno");
+    if(nomeSalvo){
+      nomeInput.value = nomeSalvo;
+      areaTrocar.style.display = "block";
     }
 
-    document.getElementById("boasVindas").textContent =
-      `Olá, ${aluno}! Vamos começar seus desafios?`;
+    // Entrar / salvar nome
+    btnEntrar.addEventListener("click", () => {
+      const nome = nomeInput.value.trim();
+      if(nome){
+        localStorage.setItem("nomeAluno", nome);
+        window.location.href = "cliques.html"; // primeira atividade
+      } else {
+        alert("Por favor, digite seu nome 😊");
+      }
+    });
 
+    // Trocar aluno
+    const btnTrocar = document.getElementById("trocarAluno");
+    btnTrocar.addEventListener("click", () => {
+      nomeInput.value = "";
+      areaTrocar.style.display = "none";
+      localStorage.removeItem("nomeAluno");
+      // Reset de pontuação
+      localStorage.setItem("pontuacao", JSON.stringify({
+        cliques:0,
+        digitacao:0,
+        monte:0,
+        quiz:0
+      }));
+    });
   </script>
 </body>
 </html>

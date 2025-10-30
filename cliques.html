@@ -9,6 +9,7 @@
 <body>
   <header>
     <h1>🖱️ Treino de Cliques</h1>
+    <p><span id="nomeExibir"></span></p>
   </header>
 
   <nav>
@@ -82,6 +83,11 @@
       localStorage.setItem("pontuacao", JSON.stringify(pontuacao));
   }
 
+    const nomeExibir = document.getElementById("nomeExibir");
+    const nomeSalvo = localStorage.getItem("nomeAluno");
+    if(nomeExibir && nomeSalvo){
+      nomeExibir.textContent = nomeSalvo;
+    }
   </script>
 </body>
 </html>

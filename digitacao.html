@@ -7,7 +7,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header><h1>⌨️ Treino de Digitação</h1></header>
+  <header>
+    <h1>⌨️ Treino de Digitação</h1>
+    <p><span id="nomeExibir"></span></p>
+  </header>
 
   <nav>
     <a href="index.html">🏠 Início</a>
@@ -84,6 +87,12 @@
       const dados = JSON.parse(localStorage.getItem("pontuacao")) || {};
       dados.digitacao = Math.max(dados.digitacao || 0, pontos);
       localStorage.setItem("pontuacao", JSON.stringify(dados));
+    }
+
+    const nomeExibir = document.getElementById("nomeExibir");
+    const nomeSalvo = localStorage.getItem("nomeAluno");
+    if(nomeExibir && nomeSalvo){
+      nomeExibir.textContent = nomeSalvo;
     }
   </script>
 </body>
