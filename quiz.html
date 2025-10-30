@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz de Informática 🧩</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>🧩 Quiz de Informática</h1></header>
+
+  <nav>
+    <a href="index.html">🏠 Início</a>
+    <a href="cliques.html">🖱️ Cliques</a>
+    <a href="digitacao.html">⌨️ Digitação</a>
+    <a href="monte.html">💻 Monte o Computador</a>
+    <a href="progresso.html">🏅 Meu Progresso</a>
+  </nav>
+
+  <main>
+    <section>
+      <p>Responda às perguntas e teste seus conhecimentos!</p>
+      <div id="pergunta"></div>
+      <div id="opcoes"></div>
+      <div id="progresso"></div>
+      <div id="resultadoQuiz"></div>
+    </section>
+  </main>
+
+  <footer><p>© 2025 Crispim Coelho</p></footer>
+
+  <script>
+    const perguntas = [
+      { q: "O mouse serve para:", opcoes: ["Digitar textos", "Apontar e clicar", "Imprimir documentos"], correta: 1 },
+      { q: "O teclado é usado para:", opcoes: ["Desenhar na tela", "Digitar textos e comandos", "Apagar vírus"], correta: 1 },
+      { q: "A CPU é o cérebro do computador?", opcoes: ["Sim", "Não", "Apenas às vezes"], correta: 0 },
+      { q: "Qual destes é um dispositivo de saída?", opcoes: ["Monitor", "Teclado", "Mouse"], correta: 0 },
+      { q: "Um software é:", opcoes: ["Parte física do computador", "Um programa que executa tarefas", "Um cabo de energia"], correta: 1 },
+      { q: "O que é a Internet?", opcoes: ["Um tipo de computador", "Uma rede mundial de computadores interligados", "Um programa de texto"], correta: 1 },
+      { q: "O que é um navegador (browser)?", opcoes: ["Um programa para acessar sites", "Um tipo de vírus", "Um sistema operacional"], correta: 0 },
+      { q: "Qual destes é um navegador de Internet?", opcoes: ["Google Chrome", "Microsoft Word", "Adobe Photoshop"], correta: 0 },
+      { q: "O que é um buscador (motor de busca)?", opcoes: ["Um programa para digitar textos", "Um site que ajuda a encontrar informações", "Um tipo de rede social"], correta: 1 },
+      { q: "Qual desses é um buscador famoso?", opcoes: ["Google", "Excel", "PowerPoint"], correta: 0 },
+      { q: "O que significa URL?", opcoes: ["Universal Resource Locator", "User Remote Link", "Unique Record List"], correta: 0 },
+      { q: "O que é um site?", opcoes: ["Um documento impresso", "Um conjunto de páginas da web acessadas por um endereço", "Um programa de computador"], correta: 1 },
+      { q: "O que é necessário para acessar a Internet?", opcoes: ["Um mouse", "Um teclado", "Uma conexão de rede"], correta: 2 },
+      { q: "O que é um link?", opcoes: ["Um atalho para outra página da web", "Um tipo de vírus", "Um programa de segurança"], correta: 0 },
+      { q: "Qual protocolo é usado para acessar páginas na web?", opcoes: ["HTTP ou HTTPS", "FTP", "SMTP"], correta: 0 },
+      { q: "O que significa a sigla WWW?", opcoes: ["World Wide Web", "Windows Web Work", "Wide World Window"], correta: 0 },
+      { q: "Qual é o principal objetivo de um buscador como o Google?", opcoes: ["Ajudar a encontrar informações na Internet", "Armazenar documentos", "Criar apresentações"], correta: 0 },
+      { q: "O que é um download?", opcoes: ["Enviar arquivos para a Internet", "Baixar arquivos da Internet para o computador", "Excluir arquivos"], correta: 1 },
+      { q: "O que é um upload?", opcoes: ["Enviar arquivos do computador para a Internet", "Baixar arquivos", "Proteger contra vírus"], correta: 0 },
+      { q: "Qual destes cuidados é importante ao usar a Internet?", opcoes: ["Compartilhar senhas com amigos", "Evitar clicar em links suspeitos", "Desligar o antivírus"], correta: 1 }
+    ];
+
+    let indice = 0;
+    let acertos = 0;
+
+    const perguntaEl = document.getElementById("pergunta");
+    const opcoesEl = document.getElementById("opcoes");
+    const progressoEl = document.getElementById("progresso");
+    const resultadoEl = document.getElementById("resultadoQuiz");
+
+    function mostrarPergunta() {
+      if (indice >= perguntas.length) {
+        resultadoEl.textContent = `🎉 Você acertou ${acertos} de ${perguntas.length} perguntas!`;
+        salvarPontuacao();
+        return;
+      }
+
+      const atual = perguntas[indice];
+      perguntaEl.textContent = atual.q;
+      progressoEl.textContent = `Pergunta ${indice + 1} de ${perguntas.length}`;
+      opcoesEl.innerHTML = "";
+
+      atual.opcoes.forEach((texto, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = texto;
+        btn.onclick = () => verificar(i, atual.correta, btn);
+        opcoesEl.appendChild(btn);
+      });
+    }
+
+    function verificar(escolhida, correta, botao) {
+      const botoes = opcoesEl.querySelectorAll("button");
+      botoes.forEach(b => b.disabled = true);
+
+      if (escolhida === correta) {
+        botao.style.backgroundColor = "#4CAF50";
+        acertos++;
+      } else {
+        botao.style.backgroundColor = "#f44336";
+      }
+
+      setTimeout(() => { indice++; mostrarPergunta(); }, 700);
+    }
+
+    function salvarPontuacao() {
+      const dados = JSON.parse(localStorage.getItem("pontuacao")) || {};
+      dados.quiz = Math.max(dados.quiz || 0, acertos * 2);
+      localStorage.setItem("pontuacao", JSON.stringify(dados));
+    }
+
+    mostrarPergunta();
+  </script>
+</body>
+</html>

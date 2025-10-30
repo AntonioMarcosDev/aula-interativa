@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treino de Cliques 🖱️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🖱️ Treino de Cliques</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">🏠 Início</a>
+    <a href="digitacao.html">⌨️ Digitação</a>
+    <a href="monte.html">💻 Monte o Computador</a>
+    <a href="quiz.html">🧩 Quiz</a>
+    <a href="progresso.html">🏅 Meu Progresso</a>
+  </nav>
+
+  <main>
+    <section>
+      <p>Clique dentro da área abaixo com o botão esquerdo, direito ou duplo clique!</p>
+      <div id="caixaCliques" style="border:2px dashed #0077cc; border-radius:10px; padding:2rem; background:#fff;">
+        <div id="mensagemClique">Aguardando seu clique...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>© 2025 Crispim Coelho</p></footer>
+
+  <script>
+    const caixa = document.getElementById("caixaCliques");
+    const msg = document.getElementById("mensagemClique");
+    let pontos = 0;
+
+    function tocarSom(freq, dur = 0.1) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.frequency.value = freq;
+      o.connect(g); g.connect(ctx.destination);
+      o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      o.stop(ctx.currentTime + dur);
+    }
+
+    let timer;
+    caixa.addEventListener("click", () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        msg.textContent = "👆 Clique esquerdo detectado!";
+        pontos++;
+        tocarSom(600);
+        salvarPontuacao();
+      }, 250);
+    });
+
+    caixa.addEventListener("dblclick", () => {
+      clearTimeout(timer);
+      msg.textContent = "👆👆 Duplo clique detectado!";
+      pontos += 2;
+      tocarSom(900);
+      salvarPontuacao();
+    });
+
+    caixa.addEventListener("contextmenu", e => {
+      e.preventDefault();
+      msg.textContent = "👉 Clique direito detectado!";
+      pontos++;
+      tocarSom(300);
+      salvarPontuacao();
+    });
+
+    function salvarPontuacao() {
+      const pontuacao = JSON.parse(localStorage.getItem("pontuacao")) || {};
+      pontuacao.cliques = pontos;
+      localStorage.setItem("pontuacao", JSON.stringify(pontuacao));
+    }
+  </script>
+</body>
+</html>

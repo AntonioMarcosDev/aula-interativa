@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monte o Computador 💻</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>💻 Monte o Computador</h1></header>
+
+  <nav>
+    <a href="index.html">🏠 Início</a>
+    <a href="cliques.html">🖱️ Cliques</a>
+    <a href="digitacao.html">⌨️ Digitação</a>
+    <a href="quiz.html">🧩 Quiz</a>
+    <a href="progresso.html">🏅 Meu Progresso</a>
+  </nav>
+
+  <main>
+    <section>
+      <p>Arraste cada peça para o local correto:</p>
+
+      <div id="peças">
+        <div class="peca" draggable="true" data-alvo="monitor">🖥️ Monitor</div>
+        <div class="peca" draggable="true" data-alvo="teclado">⌨️ Teclado</div>
+        <div class="peca" draggable="true" data-alvo="mouse">🖱️ Mouse</div>
+        <div class="peca" draggable="true" data-alvo="cpu">🧠 CPU</div>
+        <div class="peca" draggable="true" data-alvo="hd">💾 HD / SSD</div>
+        <div class="peca" draggable="true" data-alvo="som">🔊 Caixa de Som</div>
+        <div class="peca" draggable="true" data-alvo="webcam">📸 Webcam</div>
+        <div class="peca" draggable="true" data-alvo="microfone">🎤 Microfone</div>
+        <div class="peca" draggable="true" data-alvo="roteador">📡 Roteador</div>
+        <div class="peca" draggable="true" data-alvo="impressora">🖨️ Impressora</div>
+        <div class="peca" draggable="true" data-alvo="fonte">⚡ Fonte de Energia</div>
+      </div>
+
+      
+      <div id="computador">
+        <div class="slot" data-nome="monitor"><h4>Monitor</h4></div>
+        <div class="slot" data-nome="teclado"><h4>Teclado</h4></div>
+        <div class="slot" data-nome="mouse"><h4>Mouse</h4></div>
+        <div class="slot" data-nome="cpu"><h4>CPU</h4></div>
+        <div class="slot" data-nome="hd"><h4>HD / SSD</h4></div>
+        <div class="slot" data-nome="som"><h4>Caixa de Som</h4></div>
+        <div class="slot" data-nome="webcam"><h4>Webcam</h4></div>
+        <div class="slot" data-nome="microfone"><h4>Microfone</h4></div>
+        <div class="slot" data-nome="roteador"><h4>Roteador</h4></div>
+        <div class="slot" data-nome="impressora"><h4>Impressora</h4></div>
+        <div class="slot" data-nome="fonte"><h4>Fonte de Energia</h4></div>
+      </div>
+
+
+      <div id="mensagemFinal"></div>
+    </section>
+  </main>
+
+  <footer><p>© 2025 Crispim Coelho</p></footer>
+
+  <script>
+    const pecas = document.querySelectorAll('.peca');
+    const slots = document.querySelectorAll('.slot');
+    const msgFinal = document.getElementById('mensagemFinal');
+    let acertos = 0;
+    let pontos = 0;
+
+    pecas.forEach(p => p.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', p.dataset.alvo)));
+
+    slots.forEach(slot => {
+      slot.addEventListener('dragover', e => e.preventDefault());
+      slot.addEventListener('drop', e => {
+        e.preventDefault();
+        const alvo = e.dataTransfer.getData('text/plain');
+        if (alvo === slot.dataset.nome && !slot.classList.contains('correto')) {
+          slot.classList.add('correto');
+          slot.innerHTML = `<h4>${slot.dataset.nome}</h4><p>✅ Correto!</p>`;
+          document.querySelector(`.peca[data-alvo="${alvo}"]`).style.visibility = 'hidden';
+          acertos++;
+          pontos += 5;
+          if (acertos === pecas.length) {
+            msgFinal.textContent = "🎉 Parabéns! Você montou o computador completo!";
+            salvarPontuacao();
+          }
+        }
+      });
+    });
+
+    function salvarPontuacao() {
+      const dados = JSON.parse(localStorage.getItem("pontuacao")) || {};
+      dados.monte = Math.max(dados.monte || 0, pontos);
+      localStorage.setItem("pontuacao", JSON.stringify(dados));
+    }
+  </script>
+</body>
+</html>

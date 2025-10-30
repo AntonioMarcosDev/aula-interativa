@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Progresso 🏅</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>🏅 Meu Progresso</h1></header>
+
+  <nav>
+    <a href="index.html">🏠 Início</a>
+    <a href="cliques.html">🖱️ Cliques</a>
+    <a href="digitacao.html">⌨️ Digitação</a>
+    <a href="monte.html">💻 Monte o Computador</a>
+    <a href="quiz.html">🧩 Quiz</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2 id="nomeAluno"></h2>
+      <div id="pontuacoes"></div>
+      <p>Continue praticando para aumentar sua pontuação!</p>
+    </section>
+  </main>
+
+  <footer><p>© 2025 Crispim Coelho</p></footer>
+
+  <script>
+    const aluno = localStorage.getItem("aluno");
+    const dados = JSON.parse(localStorage.getItem("pontuacao")) || {};
+    document.getElementById("nomeAluno").textContent = `Aluno: ${aluno}`;
+    document.getElementById("pontuacoes").innerHTML = `
+      <p>🖱️ Cliques: ${dados.cliques || 0}</p>
+      <p>⌨️ Digitação: ${dados.digitacao || 0}</p>
+      <p>💻 Monte o Computador: ${dados.monte || 0}</p>
+      <p>🧩 Quiz: ${dados.quiz || 0}</p>
+      <h3>Total: ${(dados.cliques||0)+(dados.digitacao||0)+(dados.monte||0)+(dados.quiz||0)} pontos</h3>
+    `;
+  </script>
+</body>
+</html>

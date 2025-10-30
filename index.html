@@ -4,249 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aprendendo Informática 💻</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      margin: 0;
-      background-color: #f2f6fa;
-      color: #333;
-      text-align: center;
-      overflow-x: hidden;
-    }
-
-    header {
-      background-color: #0077cc;
-      color: white;
-      padding: 1.2rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    nav {
-      background-color: #005fa3;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding: 0.7rem;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      padding: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    section {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      padding: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    button {
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
-    }
-
-    button:hover {
-      background-color: #005fa3;
-      transform: scale(1.03);
-    }
-
-    input[type="text"] {
-      padding: 0.5rem;
-      width: 80%;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-top: 0.5rem;
-    }
-
-    #mensagemClique, #resultado {
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-
-    /* Monte o computador */
-    #peças {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .peca {
-      width: 100px;
-      height: 100px;
-      border: 2px dashed #0077cc;
-      border-radius: 8px;
-      background-color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: grab;
-      transition: transform 0.2s;
-    }
-
-    .peca:hover {
-      transform: scale(1.05);
-    }
-
-    #computador {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .slot {
-      width: 120px;
-      height: 120px;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #fff;
-      transition: background-color 0.3s, transform 0.2s;
-    }
-
-    .slot.correto {
-      background-color: #c8f7c5;
-      border-color: #3cb043;
-      transform: scale(1.05);
-    }
-
-    #mensagemFinal {
-      font-weight: bold;
-      color: green;
-      font-size: 1.2rem;
-      margin-top: 1.5rem;
-    }
-
-    /* Quiz */
-    #opcoes button {
-      display: block;
-      width: 100%;
-      margin: 0.3rem 0;
-      text-align: left;
-    }
-
-    #resultadoQuiz {
-      margin-top: 1rem;
-      font-weight: bold;
-      color: green;
-    }
-
-    footer {
-      background-color: #0077cc;
-      color: white;
-      padding: 1rem;
-      font-size: 0.9rem;
-      margin-top: 3rem;
-    }
-
-    /* 🎉 Confete */
-    .confete {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      animation: cair 2s linear forwards;
-      z-index: 9999;
-    }
-
-    @keyframes cair {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(600px); opacity: 0; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>💻 Aprendendo Informática</h1>
-    <p>Pratique com o mouse, teclado e descubra as partes do computador!</p>
+    <p>Aprenda e pratique informática básica de forma divertida!</p>
   </header>
 
   <nav>
-    <a href="#cliques">🖱️ Cliques</a>
-    <a href="#digitacao">⌨️ Digitação</a>
-    <a href="#monte">💻 Monte o Computador</a>
-    <a href="#quiz">🧩 Quiz</a>
+    <a href="cliques.html">🖱️ Cliques</a>
+    <a href="digitacao.html">⌨️ Digitação</a>
+    <a href="monte.html">💻 Monte o Computador</a>
+    <a href="quiz.html">🧩 Quiz</a>
+    <a href="progresso.html">🏅 Meu Progresso</a>
   </nav>
 
   <main>
-    <!-- 🖱️ CLIQUES -->
-    <section id="cliques">
-      <h2>🖱️ Treino de Cliques</h2>
-      <p>Clique dentro desta área com o botão <strong>esquerdo</strong> ou <strong>direito</strong> do mouse!</p>
-      <div id="caixaCliques" style="border:2px dashed #0077cc; border-radius:10px; padding:2rem; background:#fff;">
-        <div id="mensagemClique">Aguardando seu clique...</div>
-      </div>
-    </section>
-
-    <!-- ⌨️ DIGITAÇÃO -->
-    <section id="digitacao">
-      <h2>⌨️ Treino de Digitação</h2>
-      <p>Clique no botão abaixo para gerar uma frase e pratique digitá-la:</p>
-      <button id="gerarFrase">Gerar frase</button>
-      <div id="frase"></div>
-      <input type="text" id="entrada" placeholder="Digite aqui..." disabled>
-      <div id="resultado"></div>
-    </section>
-
-    <!-- 💻 MONTE O COMPUTADOR -->
-    <section id="monte">
-      <h2>💻 Monte o Computador</h2>
-      <p>Arraste cada peça para o local correto!</p>
-
-      <div id="peças">
-        <div class="peca" draggable="true" data-alvo="monitor">🖥️ Monitor</div>
-        <div class="peca" draggable="true" data-alvo="teclado">⌨️ Teclado</div>
-        <div class="peca" draggable="true" data-alvo="mouse">🖱️ Mouse</div>
-        <div class="peca" draggable="true" data-alvo="cpu">🧠 CPU</div>
-      </div>
-
-      <div id="computador">
-        <div class="slot" data-nome="monitor"><h4>Monitor</h4></div>
-        <div class="slot" data-nome="teclado"><h4>Teclado</h4></div>
-        <div class="slot" data-nome="mouse"><h4>Mouse</h4></div>
-        <div class="slot" data-nome="cpu"><h4>CPU</h4></div>
-      </div>
-
-      <div id="mensagemFinal"></div>
-    </section>
-
-    <!-- 🧩 QUIZ -->
-    <section id="quiz">
-      <h2>🧩 Quiz de Informática</h2>
-      <p>Responda às perguntas e teste seus conhecimentos!</p>
-
-      <div id="areaQuiz">
-        <div id="pergunta"></div>
-        <div id="opcoes"></div>
-        <div id="progresso"></div>
-      </div>
-      <div id="resultadoQuiz"></div>
+    <section>
+      <h2>Bem-vindo(a)!</h2>
+      <p id="boasVindas"></p>
+      <p>Escolha uma das atividades acima para começar a aprender e ganhar pontos!</p>
     </section>
   </main>
 
@@ -255,190 +33,19 @@
   </footer>
 
   <script>
-    // 🔊 Som simples
-    function tocarSom(freq, dur = 0.1) {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'sine';
-      o.frequency.value = freq;
-      o.connect(g);
-      g.connect(ctx.destination);
-      o.start();
-      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
-      o.stop(ctx.currentTime + dur);
+    // Identificação do aluno
+    let aluno = localStorage.getItem("aluno");
+    if (!aluno) {
+      aluno = prompt("Digite seu nome para começar:");
+      localStorage.setItem("aluno", aluno);
+      localStorage.setItem("pontuacao", JSON.stringify({
+        cliques: 0, digitacao: 0, monte: 0, quiz: 0
+      }));
     }
 
-    // 🎉 Confete
-    function soltarConfete() {
-      for (let i = 0; i < 40; i++) {
-        const confete = document.createElement("div");
-        confete.classList.add("confete");
-        confete.style.left = Math.random() * window.innerWidth + "px";
-        confete.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        confete.style.animationDuration = 1.5 + Math.random() + "s";
-        document.body.appendChild(confete);
-        setTimeout(() => confete.remove(), 2000);
-      }
-    }
+    document.getElementById("boasVindas").textContent =
+      `Olá, ${aluno}! Vamos começar seus desafios?`;
 
-    // 🖱️ CLIQUES
-    const caixa = document.getElementById("caixaCliques");
-    const msgClique = document.getElementById("mensagemClique");
-
-    // controle para separar clique simples de duplo
-    let singleTimer;
-    const delay = 250; // janela para considerar duplo clique
-    
-    // clique esquerdo (simples)
-    caixa.addEventListener("click", e => {
-      clearTimeout(singleTimer);
-      singleTimer = setTimeout(() => {
-        msgClique.textContent = "👆 Clique esquerdo detectado! Muito bem!";
-        caixa.style.backgroundColor = "#e6f4ff";
-        tocarSom(600, 0.15);
-      }, delay);
-    });
-
-    // duplo clique (esquerdo)
-    caixa.addEventListener("dblclick", e => {
-      clearTimeout(singleTimer); // impede a ação do clique simples
-      msgClique.textContent = "👆👆 Duplo clique detectado! Excelente!";
-      caixa.style.backgroundColor = "#e6ffe6";
-      tocarSom(900, 0.15);
-    });
-
-    // clique direito
-    caixa.addEventListener("contextmenu", e => {
-      e.preventDefault();
-      clearTimeout(singleTimer); // evita acionar o simples se vier logo após
-      msgClique.textContent = "👉 Clique direito detectado! Excelente!";
-      caixa.style.backgroundColor = "#fff4e6";
-      tocarSom(300, 0.15);
-    });
-
-    // ⌨️ DIGITAÇÃO
-    const frases = [
-      "O computador é uma ferramenta incrível.",
-      "Praticar digitação melhora sua velocidade.",
-      "Aprender informática é divertido e útil.",
-      "O mouse serve para apontar e clicar.",
-      "O teclado é essencial para escrever textos."
-    ];
-    const btnFrase = document.getElementById("gerarFrase");
-    const campoFrase = document.getElementById("frase");
-    const entrada = document.getElementById("entrada");
-    const resultado = document.getElementById("resultado");
-    let fraseAtual = "";
-
-    btnFrase.addEventListener("click", () => {
-      fraseAtual = frases[Math.floor(Math.random() * frases.length)];
-      campoFrase.textContent = `"${fraseAtual}"`;
-      entrada.value = "";
-      entrada.disabled = false;
-      entrada.focus();
-      resultado.textContent = "";
-    });
-
-    entrada.addEventListener("input", () => {
-      if (entrada.value === fraseAtual) {
-        resultado.textContent = "✅ Parabéns! Você digitou corretamente!";
-        resultado.style.color = "green";
-        entrada.disabled = true;
-        tocarSom(900, 0.3);
-        soltarConfete();
-      } else {
-        resultado.textContent = "";
-      }
-    });
-
-    // 💻 MONTE O COMPUTADOR
-    const pecas = document.querySelectorAll('.peca');
-    const slots = document.querySelectorAll('.slot');
-    const msgFinal = document.getElementById('mensagemFinal');
-    let acertos = 0;
-    pecas.forEach(p => p.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', p.dataset.alvo)));
-    slots.forEach(slot => {
-      slot.addEventListener('dragover', e => e.preventDefault());
-      slot.addEventListener('drop', e => {
-        e.preventDefault();
-        const alvo = e.dataTransfer.getData('text/plain');
-        if (alvo === slot.dataset.nome && !slot.classList.contains('correto')) {
-          slot.classList.add('correto');
-          slot.innerHTML = `<h4>${slot.dataset.nome}</h4><p>✅ Correto!</p>`;
-          tocarSom(700, 0.15);
-          acertos++;
-          document.querySelector(`.peca[data-alvo="${alvo}"]`).style.visibility = 'hidden';
-          if (acertos === pecas.length) {
-            msgFinal.textContent = "🎉 Parabéns! Você montou o computador completo!";
-            tocarSom(900, 0.4);
-            soltarConfete();
-          }
-        } else {
-          tocarSom(200, 0.1);
-          slot.style.backgroundColor = "#ffd6d6";
-          setTimeout(() => slot.style.backgroundColor = "#fff", 500);
-        }
-      });
-    });
-
-    // 🧩 QUIZ
-    const perguntas = [
-      { q: "O mouse serve para:", opcoes: ["Digitar textos", "Apontar e clicar", "Imprimir documentos"], correta: 1 },
-      { q: "O teclado é usado para:", opcoes: ["Desenhar na tela", "Digitar textos e comandos", "Apagar vírus"], correta: 1 },
-      { q: "A CPU é o cérebro do computador?", opcoes: ["Sim", "Não", "Apenas às vezes"], correta: 0 },
-      { q: "Qual destes é um dispositivo de saída?", opcoes: ["Monitor", "Teclado", "Mouse"], correta: 0 },
-      { q: "Um software é:", opcoes: ["Parte física do computador", "Um programa que executa tarefas", "Um cabo de energia"], correta: 1 }
-    ];
-
-    let indice = 0;
-    let acertosQuiz = 0;
-    const perguntaEl = document.getElementById("pergunta");
-    const opcoesEl = document.getElementById("opcoes");
-    const progressoEl = document.getElementById("progresso");
-    const resultadoQuiz = document.getElementById("resultadoQuiz");
-
-    function mostrarPergunta() {
-      if (indice >= perguntas.length) {
-        resultadoQuiz.innerHTML = `🎉 Parabéns! Você acertou ${acertosQuiz} de ${perguntas.length} perguntas.`;
-        tocarSom(900, 0.4);
-        soltarConfete();
-        return;
-      }
-
-      const atual = perguntas[indice];
-      perguntaEl.textContent = atual.q;
-      progressoEl.textContent = `Pergunta ${indice + 1} de ${perguntas.length}`;
-      opcoesEl.innerHTML = "";
-
-      atual.opcoes.forEach((texto, i) => {
-        const btn = document.createElement("button");
-        btn.textContent = texto;
-        btn.onclick = () => verificarResposta(i, atual.correta, btn);
-        opcoesEl.appendChild(btn);
-      });
-    }
-
-    function verificarResposta(escolhida, correta, botao) {
-      const botoes = opcoesEl.querySelectorAll("button");
-      botoes.forEach(b => b.disabled = true);
-
-      if (escolhida === correta) {
-        botao.style.backgroundColor = "#4CAF50";
-        tocarSom(700, 0.2);
-        acertosQuiz++;
-      } else {
-        botao.style.backgroundColor = "#f44336";
-        tocarSom(200, 0.2);
-      }
-
-      setTimeout(() => {
-        indice++;
-        mostrarPergunta();
-      }, 800);
-    }
-
-    mostrarPergunta();
   </script>
 </body>
 </html>

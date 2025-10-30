@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treino de Digitação ⌨️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>⌨️ Treino de Digitação</h1></header>
+
+  <nav>
+    <a href="index.html">🏠 Início</a>
+    <a href="cliques.html">🖱️ Cliques</a>
+    <a href="monte.html">💻 Monte o Computador</a>
+    <a href="quiz.html">🧩 Quiz</a>
+    <a href="progresso.html">🏅 Meu Progresso</a>
+  </nav>
+
+  <main>
+    <section>
+      <p>Clique no botão abaixo para gerar uma frase e pratique sua digitação:</p>
+      <button id="gerarFrase">Gerar frase</button>
+      <div id="frase" style="margin-top:1rem;font-weight:bold;"></div>
+      <input type="text" id="entrada" placeholder="Digite aqui..." disabled>
+      <div id="resultado"></div>
+    </section>
+  </main>
+
+  <footer><p>© 2025 Crispim Coelho</p></footer>
+
+  <script>
+    const frases = [
+      "O computador é uma ferramenta incrível.",
+      "Praticar digitação melhora sua velocidade.",
+      "Aprender informática é divertido e útil.",
+      "O mouse serve para apontar e clicar.",
+      "O teclado é essencial para escrever textos."
+    ];
+
+    const btn = document.getElementById("gerarFrase");
+    const fraseEl = document.getElementById("frase");
+    const entrada = document.getElementById("entrada");
+    const resultado = document.getElementById("resultado");
+    let fraseAtual = "";
+    let pontos = 0;
+
+    function tocarSom(freq, dur = 0.1) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.frequency.value = freq;
+      o.connect(g); g.connect(ctx.destination);
+      o.start(); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+      o.stop(ctx.currentTime + dur);
+    }
+
+    btn.addEventListener("click", () => {
+      fraseAtual = frases[Math.floor(Math.random() * frases.length)];
+      fraseEl.textContent = `"${fraseAtual}"`;
+      entrada.value = "";
+      entrada.disabled = false;
+      entrada.focus();
+      resultado.textContent = "";
+    });
+
+    entrada.addEventListener("input", () => {
+      if (entrada.value === fraseAtual) {
+        resultado.textContent = "✅ Parabéns! Você digitou corretamente!";
+        resultado.style.color = "green";
+        entrada.disabled = true;
+        pontos += 10;
+        tocarSom(900, 0.2);
+        salvarPontuacao();
+      }
+    });
+
+    function salvarPontuacao() {
+      const dados = JSON.parse(localStorage.getItem("pontuacao")) || {};
+      dados.digitacao = Math.max(dados.digitacao || 0, pontos);
+      localStorage.setItem("pontuacao", JSON.stringify(dados));
+    }
+  </script>
+</body>
+</html>
