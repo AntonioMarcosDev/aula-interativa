@@ -29,7 +29,7 @@
   <footer><p>© 2025 Crispim Coelho</p></footer>
 
   <script>
-    const aluno = localStorage.getItem("aluno");
+    const aluno = localStorage.getItem("nomeAluno");
     const dados = JSON.parse(localStorage.getItem("pontuacao")) || {};
     document.getElementById("nomeAluno").textContent = `Aluno: ${aluno}`;
     document.getElementById("pontuacoes").innerHTML = `
