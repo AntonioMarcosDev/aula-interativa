@@ -81,19 +81,34 @@
       });
     }
 
-    function verificar(escolhida, correta, botao) {
+    function verificarResposta(escolhida, correta, botao) {
       const botoes = opcoesEl.querySelectorAll("button");
       botoes.forEach(b => b.disabled = true);
 
+      const pontuacao = JSON.parse(localStorage.getItem("pontuacao")) || {};
+      pontuacao.quiz = pontuacao.quiz || 0; // garante que existe
+
       if (escolhida === correta) {
         botao.style.backgroundColor = "#4CAF50";
-        acertos++;
+        tocarSom(700, 0.2);
+        acertosQuiz++;
+
+        // 🏅 Ganha ponto somente se ainda não chegou ao limite de 20
+        if (pontuacao.quiz < 20) {
+          pontuacao.quiz += 1;
+          localStorage.setItem("pontuacao", JSON.stringify(pontuacao));
+        }
       } else {
         botao.style.backgroundColor = "#f44336";
+        tocarSom(200, 0.2);
       }
 
-      setTimeout(() => { indice++; mostrarPergunta(); }, 700);
-    }
+      setTimeout(() => {
+        indice++;
+        mostrarPergunta();
+      }, 800);
+  }
+
 
     function salvarPontuacao() {
       const dados = JSON.parse(localStorage.getItem("pontuacao")) || {};

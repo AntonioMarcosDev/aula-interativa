@@ -69,8 +69,12 @@
         resultado.textContent = "✅ Parabéns! Você digitou corretamente!";
         resultado.style.color = "green";
         entrada.disabled = true;
-        pontos += 10;
+        
+        pontos += 2;
+        if (pontos > 10) pontos = 10; // limite máximo
+
         tocarSom(900, 0.2);
+        
         salvarPontuacao();
       }
     });

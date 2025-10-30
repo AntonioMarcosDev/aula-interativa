@@ -76,10 +76,15 @@
           slot.innerHTML = `<h4>${slot.dataset.nome}</h4><p>✅ Correto!</p>`;
           document.querySelector(`.peca[data-alvo="${alvo}"]`).style.visibility = 'hidden';
           acertos++;
+
           pontos += 5;
+          if (pontos > 50) pontos = 50;
+          
+          salvarPontuacao();
+          
           if (acertos === pecas.length) {
             msgFinal.textContent = "🎉 Parabéns! Você montou o computador completo!";
-            salvarPontuacao();
+            tocarSom(900, 0.4);
           }
         }
       });

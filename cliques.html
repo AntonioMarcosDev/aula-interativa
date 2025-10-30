@@ -73,10 +73,14 @@
     });
 
     function salvarPontuacao() {
+      // limita o máximo de 3 pontos
+      if (pontos > 3) pontos = 3;
+
       const pontuacao = JSON.parse(localStorage.getItem("pontuacao")) || {};
       pontuacao.cliques = pontos;
       localStorage.setItem("pontuacao", JSON.stringify(pontuacao));
-    }
+  }
+
   </script>
 </body>
 </html>
