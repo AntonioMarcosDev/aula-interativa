@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
   <link rel="stylesheet" href="style.css">
   <style>
     /* 💻 Monte o Computador */
-    #pecas, #computador {
+    #pecas,
+    #computador {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 1rem;
@@ -31,7 +33,7 @@
       background-color: #f9f9f9;
       text-align: center;
       font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .peca-box:hover {
@@ -41,7 +43,7 @@
 
     /* Peça dentro da caixa */
     .peca {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
     }
 
     /* Slot de destino */
@@ -56,7 +58,7 @@
       justify-content: center;
       background-color: #fff;
       transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     }
 
     .slot h4 {
@@ -81,19 +83,25 @@
 
     /* Responsividade */
     @media (max-width: 600px) {
-      .peca-box, .slot {
+
+      .peca-box,
+      .slot {
         width: 100px;
         height: 100px;
       }
 
-      #pecas, #computador {
+      #pecas,
+      #computador {
         gap: 0.7rem;
       }
     }
   </style>
 </head>
+
 <body>
-  <header><h1>💻 Monte o Computador</h1></header>
+  <header>
+    <h1>💻 Monte o Computador</h1>
+  </header>
 
   <nav>
     <a href="index.html">🏠 Início</a>
@@ -108,31 +116,70 @@
     <section>
       <p>Arraste cada peça para o local correto:</p>
 
-      <div id="peças" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1rem; margin-bottom:2rem;">
-        <div class="peca-box" draggable="true" data-alvo="monitor"><div class="peca">🖥️ Monitor</div></div>
-        <div class="peca-box" draggable="true" data-alvo="teclado"><div class="peca">⌨️ Teclado</div></div>
-        <div class="peca-box" draggable="true" data-alvo="mouse"><div class="peca">🖱️ Mouse</div></div>
-        <div class="peca-box" draggable="true" data-alvo="cpu"><div class="peca">🧠 CPU</div></div>
-        <div class="peca-box" draggable="true" data-alvo="hd"><div class="peca">💾 HD / SSD</div></div>
-        <div class="peca-box" draggable="true" data-alvo="som"><div class="peca">🔊 Caixa de Som</div></div>
-        <div class="peca-box" draggable="true" data-alvo="webcam"><div class="peca">📸 Webcam</div></div>
-        <div class="peca-box" draggable="true" data-alvo="microfone"><div class="peca"></div>🎤 Microfone</div></div>
-        <div class="peca-box" draggable="true" data-alvo="impressora"><div class="peca"></div>🖨️ Impressora</div></div>
-        <div class="peca-box" draggable="true" data-alvo="fonte"><div class="peca"></div>⚡ Fonte de Energia</div></div>
+      <div id="pecas">
+        <div class="peca-box" draggable="true" data-alvo="monitor">
+          <div class="peca">🖥️ Monitor</div>
+        </div>
+        <div class="peca-box" draggable="true" data-alvo="teclado">
+          <div class="peca">⌨️ Teclado</div>
+        </div>
+        <div class="peca-box" draggable="true" data-alvo="mouse">
+          <div class="peca">🖱️ Mouse</div>
+        </div>
+        <div class="peca-box" draggable="true" data-alvo="cpu">
+          <div class="peca">🧠 CPU</div>
+        </div>
+        <div class="peca-box" draggable="true" data-alvo="hd">
+          <div class="peca">💾 HD / SSD</div>
+        </div>
+        <div class="peca-box" draggable="true" data-alvo="som">
+          <div class="peca">🔊 Caixa de Som</div>
+        </div>
+        <div class="peca-box" draggable="true" data-alvo="webcam">
+          <div class="peca">📸 Webcam</div>
+        </div>
+        <div class="peca-box" draggable="true" data-alvo="microfone">
+          <div class="peca">🎤 Microfone</div>
+        </div>
+        <div class="peca-box" draggable="true" data-alvo="impressora">
+          <div class="peca">🖨️ Impressora</div>
+        </div>
+        <div class="peca-box" draggable="true" data-alvo="fonte">
+          <div class="peca">⚡ Fonte de Energia</div>
+        </div>
       </div>
 
-      
       <div id="computador">
-        <div class="slot" data-nome="monitor"><h4>Monitor</h4></div>
-        <div class="slot" data-nome="teclado"><h4>Teclado</h4></div>
-        <div class="slot" data-nome="mouse"><h4>Mouse</h4></div>
-        <div class="slot" data-nome="cpu"><h4>CPU</h4></div>
-        <div class="slot" data-nome="hd"><h4>HD / SSD</h4></div>
-        <div class="slot" data-nome="som"><h4>Caixa de Som</h4></div>
-        <div class="slot" data-nome="webcam"><h4>Webcam</h4></div>
-        <div class="slot" data-nome="microfone"><h4>Microfone</h4></div>
-        <div class="slot" data-nome="impressora"><h4>Impressora</h4></div>
-        <div class="slot" data-nome="fonte"><h4>Fonte de Energia</h4></div>
+        <div class="slot" data-nome="monitor">
+          <h4>Monitor</h4>
+        </div>
+        <div class="slot" data-nome="teclado">
+          <h4>Teclado</h4>
+        </div>
+        <div class="slot" data-nome="mouse">
+          <h4>Mouse</h4>
+        </div>
+        <div class="slot" data-nome="cpu">
+          <h4>CPU</h4>
+        </div>
+        <div class="slot" data-nome="hd">
+          <h4>HD / SSD</h4>
+        </div>
+        <div class="slot" data-nome="som">
+          <h4>Caixa de Som</h4>
+        </div>
+        <div class="slot" data-nome="webcam">
+          <h4>Webcam</h4>
+        </div>
+        <div class="slot" data-nome="microfone">
+          <h4>Microfone</h4>
+        </div>
+        <div class="slot" data-nome="impressora">
+          <h4>Impressora</h4>
+        </div>
+        <div class="slot" data-nome="fonte">
+          <h4>Fonte de Energia</h4>
+        </div>
       </div>
 
 
@@ -140,7 +187,9 @@
     </section>
   </main>
 
-  <footer><p>© 2025 Crispim Coelho</p></footer>
+  <footer>
+    <p>© 2025 Crispim Coelho</p>
+  </footer>
 
   <script>
     const pecasBox = document.querySelectorAll('.peca-box');
@@ -176,9 +225,9 @@
 
           pontos += 5;
           if (pontos > 50) pontos = 50;
-          
+
           salvarPontuacao();
-          
+
           if (acertos === pecas.length) {
             msgFinal.textContent = "🎉 Parabéns! Você montou o computador completo!";
             tocarSom(900, 0.4);
@@ -194,4 +243,5 @@
     }
   </script>
 </body>
+
 </html>
